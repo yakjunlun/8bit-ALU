@@ -10,7 +10,8 @@ module alu_2 (
     input [7:0] a,
     input [7:0] b,
     input [5:0] alufn,
-    output reg [7:0] result
+    output reg [7:0] result,
+    output reg test
   );
   
   
@@ -83,6 +84,7 @@ module alu_2 (
   reg n;
   
   always @* begin
+    test = 1'h0;
     result = 1'h0;
     M_adder_a = a;
     M_adder_b = b;
@@ -116,6 +118,72 @@ module alu_2 (
       end
       2'h3: begin
         result = M_compare_cmp;
+      end
+    endcase
+    
+    case (alufn)
+      6'h00: begin
+        if (a + b != M_adder_sum) begin
+          test = 1'h1;
+        end
+      end
+      6'h01: begin
+        if (a - b != M_adder_sum) begin
+          test = 1'h1;
+        end
+      end
+      6'h18: begin
+        if (!(a == b == M_boole_boole)) begin
+          test = 1'h1;
+        end
+      end
+      6'h1e: begin
+        if (!((a + b) == M_boole_boole)) begin
+          test = 1'h1;
+        end
+      end
+      6'h16: begin
+        if (!((a != b) == M_boole_boole)) begin
+          test = 1'h1;
+        end
+      end
+      6'h1a: begin
+        if (a != M_boole_boole) begin
+          test = 1'h1;
+        end
+      end
+      6'h20: begin
+        if (!((a << b) == M_shifter_shifter)) begin
+          test = 1'h1;
+        end
+      end
+      6'h22: begin
+        if (!((a >> b) == M_shifter_shifter)) begin
+          test = 1'h1;
+        end
+      end
+      6'h23: begin
+        if (!((a >>> b) == M_shifter_shifter)) begin
+          test = 1'h1;
+        end
+      end
+      6'h33: begin
+        if (!(a == b == M_compare_cmp)) begin
+          test = 1'h1;
+        end
+      end
+      6'h35: begin
+        if (!((a < b) == M_compare_cmp)) begin
+          test = 1'h1;
+        end
+      end
+      6'h37: begin
+        if (!((a <= b) == M_compare_cmp)) begin
+          test = 1'h1;
+        end
+      end
+      default: begin
+        test = 1'h1;
       end
     endcase
   end

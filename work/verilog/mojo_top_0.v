@@ -21,7 +21,8 @@ module mojo_top_0 (
     output reg [7:0] io_seg,
     output reg [3:0] io_sel,
     input [4:0] io_button,
-    input [23:0] io_dip
+    input [23:0] io_dip,
+    input test
   );
   
   
@@ -36,6 +37,7 @@ module mojo_top_0 (
     .out(M_reset_cond_out)
   );
   wire [8-1:0] M_alu_result;
+  wire [1-1:0] M_alu_test;
   reg [8-1:0] M_alu_a;
   reg [8-1:0] M_alu_b;
   reg [6-1:0] M_alu_alufn;
@@ -45,7 +47,8 @@ module mojo_top_0 (
     .a(M_alu_a),
     .b(M_alu_b),
     .alufn(M_alu_alufn),
-    .result(M_alu_result)
+    .result(M_alu_result),
+    .test(M_alu_test)
   );
   
   always @* begin
@@ -60,10 +63,11 @@ module mojo_top_0 (
     io_sel = 4'hf;
     io_led[0+0+7-:8] = io_dip[0+0+7-:8];
     io_led[8+0+7-:8] = io_dip[8+0+7-:8];
-    io_led[16+0+7-:8] = io_dip[16+0+7-:8];
+    io_led[16+0+5-:6] = io_dip[16+0+5-:6];
     M_alu_a = io_dip[0+0+7-:8];
     M_alu_b = io_dip[8+0+7-:8];
     M_alu_alufn = io_dip[16+0+5-:6];
     led = M_alu_result;
+    io_led[16+7+0-:1] = test;
   end
 endmodule

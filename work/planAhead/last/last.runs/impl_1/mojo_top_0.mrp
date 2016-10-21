@@ -8,7 +8,7 @@ Target Device  : xc6slx9
 Target Package : tqg144
 Target Speed   : -2
 Mapper Version : spartan6 -- $Revision: 1.55 $
-Mapped Date    : Fri Oct 21 16:02:17 2016
+Mapped Date    : Fri Oct 21 16:26:57 2016
 
 Design Summary
 --------------
@@ -16,21 +16,21 @@ Number of errors:      0
 Number of warnings:    6
 Slice Logic Utilization:
   Number of Slice Registers:                     0 out of  11,440    0%
-  Number of Slice LUTs:                         71 out of   5,720    1%
-    Number used as logic:                       71 out of   5,720    1%
+  Number of Slice LUTs:                         68 out of   5,720    1%
+    Number used as logic:                       68 out of   5,720    1%
       Number using O6 output only:              63
       Number using O5 output only:               0
-      Number using O5 and O6:                    8
+      Number using O5 and O6:                    5
       Number used as ROM:                        0
     Number used as Memory:                       0 out of   1,440    0%
 
 Slice Logic Distribution:
-  Number of occupied Slices:                    34 out of   1,430    2%
+  Number of occupied Slices:                    25 out of   1,430    1%
   Number of MUXCYs used:                         8 out of   2,860    1%
-  Number of LUT Flip Flop pairs used:           71
-    Number with an unused Flip Flop:            71 out of      71  100%
-    Number with an unused LUT:                   0 out of      71    0%
-    Number of fully used LUT-FF pairs:           0 out of      71    0%
+  Number of LUT Flip Flop pairs used:           68
+    Number with an unused Flip Flop:            68 out of      68  100%
+    Number with an unused LUT:                   0 out of      68    0%
+    Number of fully used LUT-FF pairs:           0 out of      68    0%
     Number of slice register sites lost
       to control set restrictions:               0 out of  11,440    0%
 
@@ -41,8 +41,8 @@ Slice Logic Distribution:
   over-mapped for a non-slice resource or if Placement fails.
 
 IO Utilization:
-  Number of bonded IOBs:                        81 out of     102   79%
-    Number of LOCed IOBs:                       81 out of      81  100%
+  Number of bonded IOBs:                        82 out of     102   80%
+    Number of LOCed IOBs:                       81 out of      82   98%
 
 Specific Feature Utilization:
   Number of RAMB16BWERs:                         0 out of      32    0%
@@ -67,11 +67,11 @@ Specific Feature Utilization:
   Number of STARTUPs:                            0 out of       1    0%
   Number of SUSPEND_SYNCs:                       0 out of       1    0%
 
-Average Fanout of Non-Clock Nets:                3.61
+Average Fanout of Non-Clock Nets:                3.79
 
-Peak Memory Usage:  490 MB
-Total REAL time to MAP completion:  5 secs 
-Total CPU time to MAP completion (all processors):   5 secs 
+Peak Memory Usage:  491 MB
+Total REAL time to MAP completion:  6 secs 
+Total CPU time to MAP completion (all processors):   6 secs 
 
 Table of Contents
 -----------------
@@ -113,13 +113,13 @@ INFO:Map:284 - Map is running with the multi-threading option on. Map currently
    supports the use of up to 2 processors. Based on the the user options and
    machine load, Map will use 2 processors during this run.
 INFO:LIT:243 - Logical network rst_n_IBUF has no load.
-INFO:LIT:395 - The above info message is repeated 12 more times for the
+INFO:LIT:395 - The above info message is repeated 14 more times for the
    following (max. 5 shown):
    avr_rx_busy_IBUF,
+   io_dip(23)_IBUF,
+   io_dip(22)_IBUF,
    spi_mosi_IBUF,
-   spi_ss_IBUF,
-   spi_sck_IBUF,
-   cclk_IBUF
+   spi_ss_IBUF
    To see the details of these info messages, please use the -detail switch.
 INFO:MapLib:562 - No environment variables are currently set.
 INFO:LIT:244 - All of the single ended outputs in this design are using slew
@@ -131,13 +131,16 @@ INFO:Pack:1720 - Initializing voltage to 1.140 Volts. (default - Range: 1.140 to
    1.260 Volts)
 INFO:Map:215 - The Interim Design Summary has been generated in the MAP Report
    (.mrp).
+INFO:Place:834 - Only a subset of IOs are locked. Out of 82 IOs, 81 are locked
+   and 1 are not locked. If you would like to print the names of these IOs,
+   please set the environment variable XIL_PAR_DESIGN_CHECK_VERBOSE to 1. 
 INFO:Pack:1650 - Map created a placed design.
 
 Section 4 - Removed Logic Summary
 ---------------------------------
-  13 block(s) removed
-   1 block(s) optimized away
-   7 signal(s) removed
+  12 block(s) removed
+   2 block(s) optimized away
+   6 signal(s) removed
 
 Section 5 - Removed Logic
 -------------------------
@@ -147,8 +150,6 @@ The trimmed logic reported below is either:
    2. part of disabled logic
    3. a side-effect of other trimmed logic
 
-The signal "spi_channel_3_OBUFT" is unused and has been removed.
- Unused block "XST_GND" (ZERO) removed.
 The signal "spi_miso" is unused and has been removed.
  Unused block "spi_miso_OBUFT" (TRI) removed.
 The signal "spi_channel[3]" is unused and has been removed.
@@ -170,6 +171,7 @@ Unused block "spi_miso" (PAD) removed.
 
 Optimized Block(s):
 TYPE 		BLOCK
+GND 		XST_GND
 VCC 		XST_VCC
 
 Section 6 - IOB Properties
@@ -188,6 +190,8 @@ Section 6 - IOB Properties
 | io_button(2)                       | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLDOWN |          |
 | io_button(3)                       | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLDOWN |          |
 | io_button(4)                       | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLDOWN |          |
+| io_dip(22)                         | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLDOWN |          |
+| io_dip(23)                         | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLDOWN |          |
 | io_dip[0]                          | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLDOWN |          |
 | io_dip[1]                          | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLDOWN |          |
 | io_dip[2]                          | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLDOWN |          |
@@ -210,8 +214,6 @@ Section 6 - IOB Properties
 | io_dip[19]                         | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLDOWN |          |
 | io_dip[20]                         | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLDOWN |          |
 | io_dip[21]                         | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLDOWN |          |
-| io_dip[22]                         | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLDOWN |          |
-| io_dip[23]                         | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLDOWN |          |
 | io_led[0]                          | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
 | io_led[1]                          | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
 | io_led[2]                          | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
@@ -260,6 +262,7 @@ Section 6 - IOB Properties
 | spi_mosi                           | IOB              | INPUT     | LVTTL                |       |          |      |              |          |          |
 | spi_sck                            | IOB              | INPUT     | LVTTL                |       |          |      |              |          |          |
 | spi_ss                             | IOB              | INPUT     | LVTTL                |       |          |      |              |          |          |
+| test                               | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
 +---------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 Section 7 - RPMs

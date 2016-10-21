@@ -4,7 +4,8 @@ module alu (
   input a[8],      //8bit a 
   input b[8],        //8it b
   input alufn[6],     //6 bit alufn
-  output result[8]){  //output into mojo_top
+  output result[8],
+  output test){  //output into mojo_top
   
   //import modules
   adder adder;
@@ -24,6 +25,7 @@ module alu (
   always{
   
  //init inputs of modules
+  test=0;
   result=0 ;
   adder.a=a;
   adder.b=b;
@@ -62,7 +64,25 @@ module alu (
       result=shifter.shifter;
         
     b11: 
-      result= compare.cmp; }}
+      result= compare.cmp; }
+        
+  case(alufn){
+    b000000:if(a+b!=adder.sum){test=1;}
+      b000001:if(a-b!=adder.sum){test=1;}
+      b011000:if (!(a==b==boole.boole)){test=1;}
+      b011110:if(!((a+b)==boole.boole)){test=1;}
+      b010110:if(!((a!=b)==boole.boole)){test=1;}
+      b011010:if(a!=boole.boole){test=1;}
+      b100000:if(!((a<<b)==shifter.shifter)){test=1;}
+      b100010:if(!((a>>b)==shifter.shifter)){test=1;}
+      b100011:if(!((a>>>b)==shifter.shifter)){test=1;}
+      b110011:if(!(a==b==compare.cmp)){test=1;}
+      b110101:if(!((a<b)==compare.cmp)){test=1;}
+      b110111:if(!((a<=b)==compare.cmp)){test=1;}
+      default: test=1;
+        
+  }
       
                       
+}
 }

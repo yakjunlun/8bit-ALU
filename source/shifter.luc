@@ -1,0 +1,23 @@
+
+module shifter (
+    input a[8],  
+    input b[8],  
+    input alufn[6], //decides whether to SHL or SHR or SRA
+    output shifter[8] //regardless of shift, output will still be 8 bit
+  ) {
+
+  always {
+    shifter = a;//returns A by default
+    case(alufn[1:0]){
+    
+    b00: 
+      shifter= a << b; //SHL by 2 bits
+    b01: 
+      shifter = a >> b;//SHR by 2 bits
+    b11: 
+      shifter = $signed(a) >>> b; //SRA by 2 bits //$signed to make a signed value
+    //default: shifter = a;
+     
+  }
+}
+}

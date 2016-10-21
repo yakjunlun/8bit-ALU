@@ -1,0 +1,23 @@
+module boole (
+  input alufn[6],
+  input a[8],
+  input b[8],
+  output boole[8])  // 8 bit boole output from 8 bit inputs 
+    {
+
+  var i;
+    
+  always{
+  boole=00;
+  
+    for (i=0;i<8;i++){      
+    case(a[i]){  
+      0:case(b[i]){ //a=0
+            0:boole[i]=alufn[0];//b=0
+            1:boole[i]=alufn[2];}//b=1
+      
+      1:case(b[i]){//a=1
+            0:boole[i]=alufn[1];//b=0
+            1:boole[i]=alufn[3]; //b=1 
+          }                         
+            }}}}

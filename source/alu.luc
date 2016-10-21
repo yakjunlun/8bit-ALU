@@ -1,0 +1,68 @@
+module alu (
+  input clk,
+  input rst,
+  input a[8],      //8bit a 
+  input b[8],        //8it b
+  input alufn[6],     //6 bit alufn
+  output result[8]){  //output into mojo_top
+  
+  //import modules
+  adder adder;
+  boole boole;
+  compare compare;
+  shifter shifter;
+  extra extra;
+  //init z,v and n
+  sig z;
+  sig v;
+  sig n;
+  
+
+
+  
+
+  always{
+  
+ //init inputs of modules
+  result=0 ;
+  adder.a=a;
+  adder.b=b;
+  adder.alufn=alufn;
+  z = extra.z;
+  v = extra.v;
+  n=extra.n;
+  
+  boole.a=a;
+  boole.b=b;
+ boole.alufn=alufn;
+    
+  compare.z=z;
+  compare.v=v;
+  compare.n=n; 
+  compare.alufn=alufn;
+    
+  shifter.a=a;
+  shifter.b=b;
+  shifter.alufn=alufn; 
+    
+  extra.sum=adder.sum;
+  extra.a=a;
+  extra.b=b;               
+    
+  
+ //output according to ALUFN functions
+  case (alufn[5:4]){
+    b00:         
+      result=adder.sum;
+        
+    b01:
+      result=boole.boole;
+        
+    b10:
+      result=shifter.shifter;
+        
+    b11: 
+      result= compare.cmp; }}
+      
+                      
+}

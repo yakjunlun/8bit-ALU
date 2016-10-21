@@ -1,0 +1,17 @@
+module adder (
+
+  input a[8],      // 8 bit input A
+  input b[8],      //8bit input b  
+  input alufn[6],   //ALUFN 
+  output sum[8])    //8bit output  
+  
+  
+  {always{
+  sum=a-b; //forces a subtract for use in extra
+  
+  case (alufn[1:0]){
+    00:          //ALUFN0 is set to 0 for add
+      sum=a+b;    //output is sum of a and b
+        
+    01:          //ALUFN0 is set to 1 for subtract
+      sum=a-b;}}}    //output is a-b
